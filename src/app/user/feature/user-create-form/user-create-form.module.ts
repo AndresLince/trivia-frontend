@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { UserCreateFormRoutingModule } from './user-create-form-routing.module';
 import { UserCreateFormComponent } from './user-create-form.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -11,7 +12,9 @@ import { UserCreateFormComponent } from './user-create-form.component';
   ],
   imports: [
     CommonModule,
-    UserCreateFormRoutingModule
+    UserCreateFormRoutingModule,
+    FormsModule,
+    ReactiveFormsModule,
   ]
 })
 export class UserCreateFormModule { }

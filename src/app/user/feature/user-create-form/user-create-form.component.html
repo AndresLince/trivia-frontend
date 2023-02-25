@@ -1,1 +1,10 @@
-<p>user-create-form works!</p>
+<div class="user-create-container">
+    <form
+        [formGroup]="form"
+    >
+        <input type="text" placeholder="Nombre de usuario" formControlName="username">
+        <button type="submit" [disabled]="showSubmitButton()">
+            Continuar
+        </button>
+    </form>
+</div>
