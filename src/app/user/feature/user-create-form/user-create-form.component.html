@@ -3,6 +3,7 @@
         [formGroup]="form"
     >
         <input type="text" placeholder="Nombre de usuario" formControlName="username">
+        <label *ngIf="hasErrors()">{{ getErrorMessage() }}</label>
         <button type="submit" [disabled]="showSubmitButton()">
             Continuar
         </button>

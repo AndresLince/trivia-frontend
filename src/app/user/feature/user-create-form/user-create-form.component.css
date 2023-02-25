@@ -53,3 +53,12 @@
     background-color: #cccccc;
     color: #666666;
 }
+
+.user-create-container form label {
+    color: red;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    margin-top: 0.5em;
+    width: 200px;
+}
