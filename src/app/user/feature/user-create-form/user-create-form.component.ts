@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { UserNameValidator } from '../utils/username.validator';
 
 @Component({
   selector: 'app-user-create-form',
@@ -13,6 +14,7 @@ export class UserCreateFormComponent {
       '',
       [
         Validators.required,
+        UserNameValidator.hasSpace,
         Validators.minLength(6),
         Validators.maxLength(30)
       ]
@@ -28,27 +30,18 @@ export class UserCreateFormComponent {
     return !this.form.valid || this.submitted;
   }
 
-  hasErrors() {
-    if (this.form.get('username')?.errors && this.form.get('username')?.dirty) {
+  hasErrors(inputName: string) {
+    if (this.form.get(inputName)?.errors && this.form.get(inputName)?.dirty) {
       return true;
     }
     return false;
   }
 
-  getErrorMessage(): string {
-    const errors = this.form.get('username')?.errors
+  getErrorMessage(inputName: string): string {
+    const errors = this.form.get(inputName)?.errors;
     if (!errors) {
-      return "";
+      return '';
     }
-    if (errors['required']) {
-      return "El nombre de usuario debe ser mas largo";
-    }
-    if (errors['minlength']) {
-      return "El nombre de usuario debe ser mas largo";
-    }
-    if (errors['maxlength']) {
-      return "El nombre de usuario debe ser mas corto";
-    }
-    return "";
+    return UserNameValidator.getErrorMessage(errors);
   }
 }
