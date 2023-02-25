@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { UserNameValidator } from '../utils/username.validator';
+import { UserNameValidator } from '../../utils/username.validator';
 
 @Component({
   selector: 'app-user-create-form',
