@@ -1,6 +1,7 @@
 <div class="user-create-container">
     <form
         [formGroup]="form"
+        (ngSubmit)="handleSubmit()"
     >
         <input type="text" placeholder="Nombre de usuario" formControlName="username">
         <label *ngIf="hasErrors('username')">{{ getErrorMessage('username') }}</label>
