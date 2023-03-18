@@ -5,13 +5,13 @@ export interface ValidationResult {
 }
 
 export class UserNameValidator {
-    public static hasSpace(control: FormControl): ValidationResult {
+    public static hasSpace(control: FormControl): ValidationResult | null {
         const hasSpace = / +/.test(control.value);
 
         if (hasSpace) {
             return { hasSpace: true };
         }
-        return { hasSpace: false };
+        return null;
     }
 
     public static getErrorMessage(validationErrors: ValidationErrors): string {
