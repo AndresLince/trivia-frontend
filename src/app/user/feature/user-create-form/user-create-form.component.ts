@@ -32,9 +32,6 @@ export class UserCreateFormComponent {
   ) { }
 
   showSubmitButton(): boolean {
-    console.log("Es valido: ",this.form.valid);
-    console.log("submit", this.submitted)
-    console.log("Errores", this.form.get("username")?.errors)
     return !this.form.valid || this.submitted;
   }
 
