@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { UtilsService } from 'src/app/shared/data-access/utils.service';
 import { UserSignUp } from '../../data-access/user.interfaces';
 import { UserService } from '../../data-access/user.service';
 import { UserNameValidator } from '../../utils/username.validator';
@@ -30,7 +31,8 @@ export class UserCreateFormComponent {
   constructor(
     public formBuilder: FormBuilder,
     public userService: UserService,
-    private router: Router
+    private router: Router,
+    public utilsService: UtilsService
   ) { }
 
   showSubmitButton(): boolean {
@@ -56,18 +58,21 @@ export class UserCreateFormComponent {
     if (!this.form.valid) {
       return;
     }
-    const userModel: UserSignUp = {
-      userName: this.form.value.username || '',
-      ip: '192.168.10.1',
-    };
-    const router = this.router;
-    this.userService.signUp(userModel).subscribe({
-      next(resp) {
-        router.navigateByUrl('trivia/category-question');
-      },
-      error(error) {
-        console.log('Error: ', error);
-      }
+
+    this.utilsService.getIPAddress().subscribe((resp: any) => {
+      const userModel: UserSignUp = {
+        userName: this.form.value.username || '',
+        ip: resp.ip,
+      };
+      const router = this.router;
+      this.userService.signUp(userModel).subscribe({
+        next(resp) {
+          router.navigateByUrl('trivia/category-question');
+        },
+        error(error) {
+          console.log('Error: ', error);
+        }
+      });
     });
   }
 }
