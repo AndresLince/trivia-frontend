@@ -8,7 +8,7 @@ export class UtilsService {
   constructor() { }
 
   get token(): string {
-    return localStorage.getItem('token') || '';
+    return localStorage.getItem('trivia_token') || '';
   }
 
   get headers() {
