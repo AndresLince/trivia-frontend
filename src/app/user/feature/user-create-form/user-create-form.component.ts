@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { UserSignUp } from '../../data-access/user.interfaces';
 import { UserService } from '../../data-access/user.service';
 import { UserNameValidator } from '../../utils/username.validator';
@@ -28,7 +29,8 @@ export class UserCreateFormComponent {
 
   constructor(
     public formBuilder: FormBuilder,
-    public userService: UserService
+    public userService: UserService,
+    private router: Router
   ) { }
 
   showSubmitButton(): boolean {
@@ -58,9 +60,10 @@ export class UserCreateFormComponent {
       userName: this.form.value.username || '',
       ip: '192.168.10.1',
     };
+    const router = this.router;
     this.userService.signUp(userModel).subscribe({
       next(resp) {
-        console.log('Current resp: ', resp);
+        router.navigateByUrl('trivia/category-question');
       },
       error(error) {
         console.log('Error: ', error);
