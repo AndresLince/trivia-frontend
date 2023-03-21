@@ -1,11 +1,15 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UtilsService {
 
-  constructor() { }
+  constructor(
+    private http: HttpClient
+  ) { }
 
   get token(): string {
     return localStorage.getItem('trivia_token') || '';
@@ -17,5 +21,9 @@ export class UtilsService {
         'x-token': this.token
       }
     };
+  }
+
+  getIPAddress(): Observable<any> {
+    return this.http.get("http://api.ipify.org/?format=json");
   }
 }
