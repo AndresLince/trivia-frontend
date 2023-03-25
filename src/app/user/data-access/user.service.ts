@@ -24,7 +24,7 @@ export class UserService {
     );
   }
 
-  validateToken() {
+  validateToken(): Observable<boolean> {
     return this.http.get(`${this.configService.getConfig('apiUrl')}/auth/renew`, this.utilsService.headers).pipe(
       map((resp: any) => {
         localStorage.setItem('trivia_token', resp.token);
