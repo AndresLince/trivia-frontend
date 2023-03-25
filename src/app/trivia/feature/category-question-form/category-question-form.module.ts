@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CategoryQuestionFormRoutingModule } from './category-question-form-routing.module';
 import { CategoryQuestionFormComponent } from './category-question-form.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -9,7 +10,9 @@ import { CategoryQuestionFormComponent } from './category-question-form.componen
   ],
   imports: [
     CommonModule,
-    CategoryQuestionFormRoutingModule
+    CategoryQuestionFormRoutingModule,
+    FormsModule,
+    ReactiveFormsModule,
   ]
 })
 export class CategoryQuestionFormModule { }

@@ -1,1 +1,16 @@
-<p>category-question-form works!</p>
+<div class="category-question-container">
+    <form [formGroup]="form" (ngSubmit)="handleSubmit()">
+        <label for="questionCategory">Selecciona una categoria:</label>
+        <select name="questionCategory" id="questionCategory" formControlName="questionCategory">
+            <option
+                *ngFor="let category of questionCategories"
+                [value]="category.idQuestionCategory"
+            >
+                {{category.name}}
+            </option>
+        </select>
+        <button type="submit" [disabled]="showSubmitButton()">
+            Continuar
+        </button>
+    </form>
+</div>
