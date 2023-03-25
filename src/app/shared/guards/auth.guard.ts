@@ -1,6 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, tap } from 'rxjs';
+import { UserService } from 'src/app/user/data-access/user.service';
 import { UtilsService } from '../data-access/utils.service';
 
 @Injectable({
@@ -10,7 +11,8 @@ export class AuthGuard implements CanActivate {
 
   constructor(
     private utilsService: UtilsService,
-    private router: Router
+    private router: Router,
+    private userService: UserService
   ) {}
 
   canActivate(
@@ -20,6 +22,13 @@ export class AuthGuard implements CanActivate {
       if (!this.utilsService.token) {
         return this.router.navigateByUrl('user/register');
       }
-      return true;
+      return this.userService.validateToken()
+        .pipe(
+          tap(isAuthenticated => {
+            if (!isAuthenticated) {
+              this.router.navigateByUrl('user/register');
+            }
+          })
+        );
   }
 }
