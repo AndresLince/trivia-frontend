@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UtilsService } from 'src/app/shared/data-access/utils.service';
+import { GetIp } from '../../data-access/getIp.interface';
 import { UserSignUp } from '../../data-access/user.interfaces';
 import { UserService } from '../../data-access/user.service';
 import { UserNameValidator } from '../../utils/username.validator';
@@ -59,14 +60,14 @@ export class UserCreateFormComponent {
       return;
     }
 
-    this.utilsService.getIPAddress().subscribe((resp: any) => {
+    this.utilsService.getIPAddress().subscribe((resp: GetIp) => {
       const userModel: UserSignUp = {
         userName: this.form.value.username || '',
         ip: resp.ip,
       };
       const router = this.router;
       this.userService.signUp(userModel).subscribe({
-        next(resp) {
+        next() {
           router.navigateByUrl('trivia/category-question');
         },
         error(error) {
