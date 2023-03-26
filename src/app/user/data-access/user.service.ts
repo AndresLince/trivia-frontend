@@ -20,6 +20,7 @@ export class UserService {
     return this.http.post(`${this.configService.getConfig('apiUrl') }/auth/signup`, formData).pipe(
       tap((resp: any) => {
         localStorage.setItem('trivia_token', resp.token);
+        localStorage.setItem('userName', formData.userName);
       })
     );
   }
@@ -34,5 +35,9 @@ export class UserService {
         of(false)
       )
     );
+  }
+
+  get userName(): string {
+    return localStorage.getItem('userName') || '';
   }
 }
