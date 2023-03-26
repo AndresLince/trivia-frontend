@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UtilsService } from 'src/app/shared/data-access/utils.service';
@@ -12,7 +12,7 @@ import { UserNameValidator } from '../../utils/username.validator';
   templateUrl: './user-create-form.component.html',
   styleUrls: ['./user-create-form.component.css'],
 })
-export class UserCreateFormComponent {
+export class UserCreateFormComponent implements OnInit {
   submitted = false;
   public form = this.formBuilder.group({
     username: [
@@ -35,6 +35,10 @@ export class UserCreateFormComponent {
     private router: Router,
     public utilsService: UtilsService
   ) { }
+
+  ngOnInit(): void {
+    this.form.controls.username.setValue(this.userService.userName);
+  }
 
   showSubmitButton(): boolean {
     return !this.form.valid || this.submitted;
