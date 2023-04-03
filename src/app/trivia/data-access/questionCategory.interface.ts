@@ -1,4 +1,4 @@
 export interface QuestionCategory {
-    idQuestionCategory: number;
+    idQuestionCategory: string;
     name: string;
 }

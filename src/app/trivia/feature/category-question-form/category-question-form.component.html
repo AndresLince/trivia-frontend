@@ -1,7 +1,7 @@
 <div class="category-question-container">
     <form [formGroup]="form" (ngSubmit)="handleSubmit()">
         <label for="questionCategory">Selecciona una categoria de pregunta:</label>
-        <select name="questionCategory" id="questionCategory" formControlName="questionCategory">
+        <select name="idQuestionCategory" id="idQuestionCategory" formControlName="idQuestionCategory">
             <option
                 *ngFor="let category of questionCategories"
                 [value]="category.idQuestionCategory"

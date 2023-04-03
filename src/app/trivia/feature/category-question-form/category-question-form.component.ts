@@ -3,6 +3,8 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { UserNameValidator } from 'src/app/user/utils/username.validator';
 import { CategoryQuestionService } from '../../data-access/category-question.service';
 import { QuestionCategory } from '../../data-access/questionCategory.interface';
+import { TriviaService } from '../../data-access/trivia.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-category-question-form',
@@ -11,7 +13,7 @@ import { QuestionCategory } from '../../data-access/questionCategory.interface';
 })
 export class CategoryQuestionFormComponent implements OnInit {
   public form = this.formBuilder.group({
-    questionCategory: [
+    idQuestionCategory: [
       '',
       [
         Validators.required,
@@ -24,6 +26,8 @@ export class CategoryQuestionFormComponent implements OnInit {
   constructor(
     private categoryQuestionService: CategoryQuestionService,
     private formBuilder: FormBuilder,
+    private triviaService: TriviaService,
+    private router: Router,
   ) { }
 
   ngOnInit() {
@@ -34,7 +38,22 @@ export class CategoryQuestionFormComponent implements OnInit {
   }
 
   handleSubmit() {
-
+    if (!this.form.valid) {
+      return;
+    }
+    const questionCategory: QuestionCategory = {
+      idQuestionCategory: this.form.value.idQuestionCategory || '',
+      name: '',
+    };
+    const router = this.router;
+    this.triviaService.create(questionCategory).subscribe({
+      next() {
+        router.navigateByUrl('trivia/question');
+      },
+      error(error) {
+        console.log('Error: ', error);
+      }
+    });
   }
 
   showSubmitButton(): boolean {
