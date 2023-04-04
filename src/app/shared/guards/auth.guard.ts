@@ -1,4 +1,4 @@
-import { inject, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { Observable, tap } from 'rxjs';
 import { UserService } from 'src/app/user/data-access/user.service';
@@ -15,10 +15,7 @@ export class AuthGuard implements CanActivate {
     private userService: UserService
   ) {}
 
-  canActivate(
-    route: ActivatedRouteSnapshot,
-
-    state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
+  canActivate(): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
       if (!this.utilsService.token) {
         return this.router.navigateByUrl('user/register');
       }

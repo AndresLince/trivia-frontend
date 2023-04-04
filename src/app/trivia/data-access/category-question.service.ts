@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, Observable, retry } from 'rxjs';
+import { Observable } from 'rxjs';
 import { ConfigService } from 'src/app/shared/data-access/config.service';
 import { UtilsService } from 'src/app/shared/data-access/utils.service';
 

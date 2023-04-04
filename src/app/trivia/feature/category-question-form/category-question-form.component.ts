@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { UserNameValidator } from 'src/app/user/utils/username.validator';
 import { CategoryQuestionService } from '../../data-access/category-question.service';
 import { QuestionCategory } from '../../data-access/questionCategory.interface';
 import { TriviaService } from '../../data-access/trivia.service';
