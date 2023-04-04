@@ -1,1 +1,11 @@
-<p>question works!</p>
+<div class="question-container">
+    <form [formGroup]="form" (ngSubmit)="handleSubmit()">
+        <label for="selectedAnswer" class="question">{{ question.description }}</label>
+        <label *ngFor="let answer of answers">
+            <input type="radio" formControlName="selectedAnswer" [value]="answer.idAnswer"> {{ answer.description }}
+        </label>
+        <button type="submit" [disabled]="showSubmitButton()">
+            Continuar
+        </button>
+    </form>
+</div>
