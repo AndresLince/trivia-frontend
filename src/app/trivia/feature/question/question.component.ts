@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Answer } from '../../data-access/answer.interface';
 import { Question } from '../../data-access/question.interface';
 import { FormBuilder, Validators } from '@angular/forms';
+import { TriviaService } from '../../data-access/trivia.service';
 
 @Component({
   selector: 'app-question',
@@ -23,31 +24,22 @@ export class QuestionComponent {
   public question: Question;
   public submitted = false;
   constructor(
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private triviaService: TriviaService
   ) {
+    this.triviaService.getQuestion().subscribe(response => {
+      this.question = {
+        description: response.data.description,
+        idQuestion: response.data.idQuestion,
+        idQuestionCategory: '1'
+      };
+      this.answers = response.data.answers;
+    });
     this.question = {
-      description: '¿Cuál fue la principal causa de la Guerra Civil estadounidense?',
+      description: '...',
       idQuestion: '1',
       idQuestionCategory: '1'
     };
-    this.answers = [
-      {
-        idAnswer: '1',
-        description: 'La cuestión de los derechos estatales'
-      },
-      {
-        idAnswer: '2',
-        description: 'La abolición de la esclavitud'
-      },
-      {
-        idAnswer: '3',
-        description: 'Diferencias económicas entre el Norte y el Sur'
-      },
-      {
-        idAnswer: '4',
-        description: 'Desacuerdos políticos sobre aranceles'
-      },
-    ]
   }
 
   handleSubmit() {
