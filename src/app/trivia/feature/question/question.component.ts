@@ -3,6 +3,7 @@ import { Answer } from '../../data-access/answer.interface';
 import { Question } from '../../data-access/question.interface';
 import { FormBuilder, Validators } from '@angular/forms';
 import { TriviaService } from '../../data-access/trivia.service';
+import { SetSelectedAnswer } from '../../data-access/set-selected-answer.model';
 
 @Component({
   selector: 'app-question',
@@ -27,6 +28,35 @@ export class QuestionComponent {
     private formBuilder: FormBuilder,
     private triviaService: TriviaService
   ) {
+    this.question = {
+      description: '...',
+      idQuestion: '1',
+      idQuestionCategory: '1'
+    };
+    this.getQuestion();
+  }
+
+  handleSubmit() {
+    this.submitted = true;
+    if (!this.form.valid) {
+      return;
+    }
+    const selectedAnswerModel: SetSelectedAnswer = {
+      idTrivia: this.triviaService.getIdTrivia(),
+      idQuestion: this.question.idQuestion,
+      idSelectedAnswer: this.form.value.selectedAnswer || ''
+    };
+    this.triviaService.setSelectedAnswer(selectedAnswerModel).subscribe(response => {
+      this.submitted = false;
+      this.getQuestion();
+    });
+  }
+
+  showSubmitButton() {
+    return !this.form.valid || this.submitted;
+  }
+
+  getQuestion() {
     this.triviaService.getQuestion().subscribe(response => {
       this.question = {
         description: response.data.description,
@@ -35,19 +65,5 @@ export class QuestionComponent {
       };
       this.answers = response.data.answers;
     });
-    this.question = {
-      description: '...',
-      idQuestion: '1',
-      idQuestionCategory: '1'
-    };
-  }
-
-  handleSubmit() {
-    this.submitted = true;
-    console.log(this.form.value);
-  }
-
-  showSubmitButton() {
-    return !this.form.valid || this.submitted;
   }
 }
