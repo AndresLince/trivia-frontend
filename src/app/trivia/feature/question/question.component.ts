@@ -4,6 +4,7 @@ import { Question } from '../../data-access/question.interface';
 import { FormBuilder, Validators } from '@angular/forms';
 import { TriviaService } from '../../data-access/trivia.service';
 import { SetSelectedAnswer } from '../../data-access/set-selected-answer.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-question',
@@ -26,7 +27,8 @@ export class QuestionComponent {
   public submitted = false;
   constructor(
     private formBuilder: FormBuilder,
-    private triviaService: TriviaService
+    private triviaService: TriviaService,
+    private router: Router,
   ) {
     this.question = {
       description: '...',
@@ -57,13 +59,23 @@ export class QuestionComponent {
   }
 
   getQuestion() {
-    this.triviaService.getQuestion().subscribe(response => {
-      this.question = {
-        description: response.data.description,
-        idQuestion: response.data.idQuestion,
-        idQuestionCategory: '1'
-      };
-      this.answers = response.data.answers;
-    });
+    this.triviaService.getQuestion().subscribe({
+        next: (response) => {
+          this.question = {
+            description: response.data.description,
+            idQuestion: response.data.idQuestion,
+            idQuestionCategory: '1'
+          };
+          this.answers = response.data.answers;
+        },
+        error: (e) => {
+          if (e.status === 404) {
+            this.router.navigateByUrl('trivia/summary');
+          }
+          console.log(e);
+        },
+        complete: () => console.log('complete')
+      }
+    );
   }
 }
