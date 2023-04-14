@@ -6,5 +6,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./summary.component.css']
 })
 export class SummaryComponent {
-
+  public score: number = 0;
 }
