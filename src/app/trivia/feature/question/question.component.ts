@@ -50,12 +50,13 @@ export class QuestionComponent {
     };
     this.triviaService.setSelectedAnswer(selectedAnswerModel).subscribe(response => {
       this.submitted = false;
+      this.form.reset();
       this.getQuestion();
     });
   }
 
   showSubmitButton() {
-    return !this.form.valid || this.submitted;
+    return !this.form.valid && !this.submitted;
   }
 
   getQuestion() {
