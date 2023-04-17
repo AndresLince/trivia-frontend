@@ -36,4 +36,8 @@ export class TriviaService {
   setSelectedAnswer(formData: SetSelectedAnswer): Observable<any> {
     return this.http.put(`${this.configService.getConfig('apiUrl')}/trivia/answer`, formData, this.utilsService.headers);
   }
+
+  getSummary(): Observable<any> {
+    return this.http.get(`${this.configService.getConfig('apiUrl')}/trivia/summary/${this.getIdTrivia() }`, this.utilsService.headers);
+  }
 }
