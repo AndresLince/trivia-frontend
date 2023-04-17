@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { TriviaService } from '../../data-access/trivia.service';
 
 @Component({
   selector: 'app-summary',
@@ -7,4 +8,14 @@ import { Component } from '@angular/core';
 })
 export class SummaryComponent {
   public score: number = 0;
+
+  constructor(
+    public triviaService: TriviaService
+  ) {
+    this.triviaService.getSummary().subscribe({
+      next: (response) => {
+        this.score = response.score;
+      },
+    })
+  }
 }
