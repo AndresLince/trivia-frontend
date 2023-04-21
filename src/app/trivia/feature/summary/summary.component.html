@@ -1,6 +1,6 @@
 <div class="summary-container">
     <label>Your score: {{ score }}</label>
-    <app-scores-list></app-scores-list>
+    <app-scores-list [scores]="scores"></app-scores-list>
     <button (click)="handleOnClick()">
         Volver a jugar
     </button>

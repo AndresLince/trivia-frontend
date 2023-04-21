@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { TriviaService } from '../../data-access/trivia.service';
 import { Router } from '@angular/router';
+import { Score } from '../../data-access/scores.interface';
 
 @Component({
   selector: 'app-summary',
@@ -9,6 +10,7 @@ import { Router } from '@angular/router';
 })
 export class SummaryComponent {
   public score: number = 0;
+  public scores: Score[] = [];
 
   constructor(
     public triviaService: TriviaService,
@@ -16,6 +18,7 @@ export class SummaryComponent {
   ) {
     this.triviaService.getSummary().subscribe({
       next: (response) => {
+        this.scores = response.scores;
         this.score = response.score;
       },
     })
