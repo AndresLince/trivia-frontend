@@ -1,1 +1,13 @@
-<p>scores-list works!</p>
+<div class="scores-list-container" *ngIf="scores.length > 0">
+    <label><strong>Top score:</strong></label>
+    <table>
+        <tr>
+            <th>Nombre</th>
+            <th class="score-column">Score</th>
+        </tr>
+        <tr *ngFor="let score of scores">
+            <td>{{ score.userName }}</td>
+            <td class="score-column">{{ score.score }}</td>
+        </tr>
+    </table>
+</div>
