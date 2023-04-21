@@ -1,0 +1,28 @@
+.scores-list-container {
+    /* top | right | down | left */
+    padding: 1em 1em 1em 1em;
+    margin: 0 auto;
+}
+
+.scores-list-container label {
+    color: #666666;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+    width: 200px;
+}
+
+.scores-list-container table {
+    color: #666666;
+    margin: 0 auto;
+}
+
+.score-column {
+    margin-left: 10px;
+    display: flex;
+    align-items: right;
+    justify-content: right;
+}
