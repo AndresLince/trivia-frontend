@@ -26,3 +26,7 @@
     align-items: right;
     justify-content: right;
 }
+
+.current-score {
+    color: green;
+}

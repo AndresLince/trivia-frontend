@@ -8,4 +8,9 @@ import { Score } from '../../data-access/scores.interface';
 })
 export class ScoresListComponent{
   @Input() scores: Score[] = [];
+  @Input() currentScore: number = 0;
+
+  validateCurrentScore(score: number): boolean {
+    return score === this.currentScore;
+  }
 }

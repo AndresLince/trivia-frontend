@@ -5,7 +5,7 @@
             <th>Nombre</th>
             <th class="score-column">Score</th>
         </tr>
-        <tr *ngFor="let score of scores">
+        <tr *ngFor="let score of scores" [class.current-score]="validateCurrentScore(score.score)">
             <td>{{ score.userName }}</td>
             <td class="score-column">{{ score.score }}</td>
         </tr>
