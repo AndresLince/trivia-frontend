@@ -24,6 +24,6 @@ export class UtilsService {
   }
 
   getIPAddress(): Observable<any> {
-    return this.http.get("http://api.ipify.org/?format=json");
+    return this.http.get("https://api.ipify.org/?format=json");
   }
 }
