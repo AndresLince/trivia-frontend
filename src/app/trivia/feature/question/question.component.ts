@@ -23,18 +23,17 @@ export class QuestionComponent {
   });
 
   public answers: Answer[] = [];
-  public question: Question;
+  public question: Question = {
+    description: '',
+    idQuestion: '',
+    idQuestionCategory: ''
+  };
   public submitted = false;
   constructor(
     private formBuilder: FormBuilder,
     private triviaService: TriviaService,
     private router: Router,
   ) {
-    this.question = {
-      description: '...',
-      idQuestion: '1',
-      idQuestionCategory: '1'
-    };
     this.getQuestion();
   }
 
