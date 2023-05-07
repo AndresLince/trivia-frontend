@@ -19,7 +19,7 @@ export class UserService {
   signUp(formData: UserSignUp): Observable<any> {
     return this.http.post(`${this.configService.getConfig('apiUrl') }/auth/signup`, formData).pipe(
       tap((resp: any) => {
-        localStorage.setItem('trivia_token', resp.token);
+        this.setToken(resp.token);
         localStorage.setItem('userName', formData.userName);
       })
     );
@@ -39,5 +39,9 @@ export class UserService {
 
   get userName(): string {
     return localStorage.getItem('userName') || '';
+  }
+
+  setToken(token: string) {
+    localStorage.setItem('trivia_token', token);
   }
 }
