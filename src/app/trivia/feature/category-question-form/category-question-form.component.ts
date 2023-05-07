@@ -4,6 +4,7 @@ import { CategoryQuestionService } from '../../data-access/category-question.ser
 import { QuestionCategory } from '../../data-access/questionCategory.interface';
 import { TriviaService } from '../../data-access/trivia.service';
 import { Router } from '@angular/router';
+import { UserService } from 'src/app/user/data-access/user.service';
 
 @Component({
   selector: 'app-category-question-form',
@@ -26,6 +27,7 @@ export class CategoryQuestionFormComponent implements OnInit {
     private categoryQuestionService: CategoryQuestionService,
     private formBuilder: FormBuilder,
     private triviaService: TriviaService,
+    private userService: UserService,
     private router: Router,
   ) { }
 
@@ -46,11 +48,14 @@ export class CategoryQuestionFormComponent implements OnInit {
     };
     const router = this.router;
     this.triviaService.create(questionCategory).subscribe({
-      next() {
-        router.navigateByUrl('trivia/question');
+      next: () => {
+        this.router.navigateByUrl('trivia/question');
       },
-      error(error) {
-        console.log('Error: ', error);
+      error: (error) => {
+        if (error.status === 500) {
+          this.userService.setToken('');
+          this.router.navigateByUrl('user/register');
+        }
       }
     });
   }
